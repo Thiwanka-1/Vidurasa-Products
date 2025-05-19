@@ -5,6 +5,7 @@ import {
   FiInstagram,
   FiTwitter,
   FiMail,
+  FiLinkedin,
 } from 'react-icons/fi';
 import logo from './logo2.png';
 
@@ -42,6 +43,11 @@ export default function Footer() {
     href: 'https://twitter.com/YourProfile',
     Icon: FiTwitter,
     label: 'Twitter',
+  },
+  {
+    href: 'https://linkedin.com/in/YourProfile',
+    Icon: FiLinkedin,
+    label: 'Linkedin',
   },
 ];
   

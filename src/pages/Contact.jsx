@@ -7,6 +7,7 @@ import {
   FiFacebook,
   FiInstagram,
   FiLinkedin,
+  FiTwitter,
 } from 'react-icons/fi';
 import { FaSpinner } from 'react-icons/fa';
 import contactHero from '../images/contact1.jpg';
@@ -157,6 +158,15 @@ export default function Contact() {
           className="text-black text-2xl hover:text-gray-700 transition"
         >
           <FiLinkedin />
+        </a>
+        <a
+          href="https://twitter.com/YourProfile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Twitter"
+          className="text-black text-2xl hover:text-gray-700 transition"
+        >
+          <FiTwitter />
         </a>
       </div>
     </div>
