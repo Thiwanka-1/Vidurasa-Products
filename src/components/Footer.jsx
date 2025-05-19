@@ -1,5 +1,5 @@
 // src/components/Footer.jsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FiFacebook,
   FiInstagram,
@@ -9,6 +9,25 @@ import {
 import logo from './logo2.png';
 
 export default function Footer() {
+
+  const [email, setEmail] = useState('');
+  const [notification, setNotification] = useState('');
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    // Here you could also fire off an API call if needed…
+    setNotification('🎉 Thanks for subscribing!');
+    setEmail('');
+  };
+
+  // auto-dismiss after 5 seconds
+  useEffect(() => {
+    if (!notification) return;
+    const timer = setTimeout(() => setNotification(''), 5000);
+    return () => clearTimeout(timer);
+  }, [notification]);
+
+  
   return (
     <footer className="bg-gray-900 text-gray-300 pt-16">
       <div className="container mx-auto px-6 lg:px-20">
@@ -28,10 +47,10 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {[
-                { name: 'Home', href: '#hero' },
-                { name: 'Our Products', href: '#products' },
-                { name: 'About Us', href: '#about' },
-                { name: 'Contact', href: '#contact' },
+                { name: 'Home', href: '/' },
+                { name: 'Our Products', href: '/products' },
+                { name: 'About Us', href: '/about' },
+                { name: 'Contact', href: '/contact' },
               ].map((link) => (
                 <li key={link.name}>
                   <a
@@ -59,25 +78,43 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Newsletter</h4>
-            <p className="text-gray-400 mb-4">
-              Get the latest spice news & offers.
-            </p>
-            <form className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="w-full px-4 py-2 rounded-l-lg bg-gray-800 text-gray-200 placeholder-gray-500 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 rounded-r-lg transition"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
+          <div className="mx-auto max-w-md px-6">
+        <h4 className="text-white font-semibold mb-4">Newsletter</h4>
+        <p className="text-gray-400 mb-4">
+          Get the latest spice news & offers.
+        </p>
+        <form onSubmit={handleSubscribe} className="flex">
+          <input
+            type="email"
+            required
+            placeholder="Your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-2 rounded-l-lg bg-gray-800 text-gray-200 placeholder-gray-500 focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 px-4 rounded-r-lg transition"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+{notification && (
+        <div
+          className="fixed bottom-6 right-6 bg-green-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-4"
+          role="alert"
+        >
+          <span className="flex-1">{notification}</span>
+          <button
+            onClick={() => setNotification('')}
+            className="text-white hover:text-gray-200"
+            aria-label="Close notification"
+          >
+            ✕
+          </button>
+        </div>
+      )}
         </div>
 
         {/* Social Icons */}

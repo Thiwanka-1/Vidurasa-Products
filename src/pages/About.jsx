@@ -1,188 +1,233 @@
-// About.jsx
-import React from 'react';
-import CountUp from 'react-countup';
-import { FaHardHat, FaBuilding, FaHandshake } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import {
+  FiTarget,
+  FiEye,
+  FiAward,
+  FiHeart,
+  FiUsers,
+  FiGlobe,
+} from 'react-icons/fi';
+import heroImage from '../images/about.png';
+import storyImage from '../images/ship.png';
 
-const About = () => {
-  // Sample team data for the team section; extend or change as needed.
-  const teamMembers = [
+// Generic counter hook
+function useCounter(end, duration = 2000) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    let start = 0;
+    const stepTime = Math.max(Math.floor(duration / end), 20);
+    const timer = setInterval(() => {
+      start += 1;
+      setCount(start);
+      if (start === end) clearInterval(timer);
+    }, stepTime);
+    return () => clearInterval(timer);
+  }, [end, duration]);
+  return count;
+}
+
+export default function About() {
+  // counters
+  const years = useCounter(5);
+  const tons = useCounter(200);
+  const clients = useCounter(350);
+  const partners = useCounter(25);
+
+   const values = [
     {
-      id: 1,
-      name: "John Doe",
-      role: "Project Manager",
-      image: "https://img.freepik.com/free-photo/smiling-young-afro-american-builder-man-uniform-with-safety-helmet-thumbing-up-isolated-white-background-with-copy-space_141793-105397.jpg?t=st=1744383619~exp=1744387219~hmac=39220d780353132d39f37b32d5ab0ca04a20b4536333c9dbc513d29febc3459e&w=996",
+      Icon: FiAward,
+      title: 'Quality',
+      desc: 'We maintain the highest standards in every batch of spice we deliver.',
     },
     {
-      id: 2,
-      name: "Jane Smith",
-      role: "Lead Architect",
-      image: "https://img.freepik.com/free-photo/smiling-young-builder-man-safety-glasses-wearing-uniform-with-safety-helmet-standing-with-crossed-arms-isolated-orange-wall-with-copy-space_141793-120099.jpg?t=st=1744383634~exp=1744387234~hmac=185b1750479d18336e53b7d3f7291df90cca13ba57a33d9cd07a897ae445ccae&w=996",
+      Icon: FiHeart,
+      title: 'Integrity',
+      desc: 'Transparent relationships with our growers, partners, and customers.',
     },
     {
-      id: 3,
-      name: "Mike Johnson",
-      role: "Construction Supervisor",
-      image: "https://img.freepik.com/free-photo/smiling-young-afro-american-builder-man-safety-glasses-wearing-uniform-with-safety-helmet-thumbing-up-isolated-orange-background-with-copy-space_141793-105136.jpg?t=st=1744383664~exp=1744387264~hmac=a206720f5e29571af22f3e3b280280325c64e9127189af3564d26afcadb418e5&w=996",
+      Icon: FiUsers,
+      title: 'Community',
+      desc: 'Empowering local farmers and preserving traditional practices.',
+    },
+    {
+      Icon: FiGlobe,
+      title: 'Sustainability',
+      desc: 'Eco-friendly cultivation and packaging for future generations.',
     },
   ];
 
-  return (
-    <div className="flex flex-col">
-      {/* =========================
-          Hero Banner
-      ========================= */}
-      <section
-        className="relative h-[700px] bg-cover bg-center "
-        style={{ backgroundImage: "url('https://img.freepik.com/free-psd/builder-carries-steel-beam-his-shoulder-generative-ai_587448-2200.jpg?t=st=1744384959~exp=1744388559~hmac=e5f84c2b123eef59958222538bd7a878f37a55433b177d521d2fe86dee9eda01&w=826" }}
-      >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-bold">
-            About Dumbara Constructions
-          </h1>
-          <p className="mt-4 text-lg md:text-2xl">
-            Building the Future with Quality, Innovation & Integrity
-          </p>
-        </div>
-      </section>
+    const items = [
+    {
+      Icon: FiTarget,
+      title: 'Our Mission',
+      text:
+        'To cultivate and deliver the purest, most aromatic Ceylon spices, while uplifting local communities and preserving the environment.',
+    },
+    {
+      Icon: FiEye,
+      title: 'Our Vision',
+      text:
+        'To be the world’s leading ambassador of genuine Ceylon cinnamon and black pepper, celebrated for quality and sustainability.',
+    },
+  ];
 
-      {/* =========================
-          Our Story Section
-      ========================= */}
-      <section className="py-16 px-4 md:px-8 bg-white">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-          {/* Text */}
-          <div>
-            <h2 className="text-3xl font-bold text-[#1E3A4C]">Our Story</h2>
-            <p className="mt-4 text-gray-700">
-              Established in [Year], Dumbara Constructions began as a small local business and has grown into a trusted name in the construction industry. Our journey is fueled by a passion for excellence, an eye for innovation, and a commitment to exceptional quality.
+
+  return (
+    <div className="font-sans text-gray-800">
+      {/* Hero Banner */}
+      <section
+  id="hero"
+  className="relative h-[600px] bg-cover bg-center"
+  style={{ backgroundImage: `url(${heroImage})` }}
+>
+  <div className="absolute inset-0 bg-black bg-opacity-50" />
+  <div className="relative z-10 container mx-auto h-full flex flex-col justify-center px-6">
+    <h1 className="text-4xl md:text-6xl text-white font-bold mb-4">
+      About Us
+    </h1>
+    <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed">
+      
+Widurasa Agro was founded by a family passionate about bringing
+              true Ceylon cinnamon and black pepper to the world. Starting
+              from a small plantation in Sri Lanka, we perfected sustainable
+              cultivation and traditional processing methods to deliver
+              unmatched aroma and taste.
+    </p>
+  </div>
+</section>
+
+
+      {/* Our Story */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-10">
+          <div className="lg:w-1/2 space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+              Our Story
+            </h2>
+            <p className="text-gray-700 leading-relaxed">
+              We are a family-owned business dedicated to producing the finest
+Ceylon cinnamon and pepper from Sri Lanka.
+Our commitment to excellence ensures a product that supports local
+communities and brings the best of Sri Lankan spice to the world.
+We have been registered as a sole proprietor business under the
+Monaragala Divisional Office [registration No: MO/3758] since July of
+2024.
             </p>
-            <p className="mt-4 text-gray-700">
-              Over the years, we have built a reputation for integrity and high standards, turning visions into reality and creating spaces that stand the test of time. Our success is reflected in our enduring client relationships and the projects we proudly deliver.
+            <p className="text-gray-700 leading-relaxed">
+              Today, our spices travel from our fields to kitchens globally,
+              connecting generations of flavor and tradition in every sprinkle.
             </p>
           </div>
-          {/* Image */}
-          <div>
+          <div className="lg:w-1/2">
             <img
-              src="https://img.freepik.com/free-photo/construction-silhouette_1150-8336.jpg?t=st=1744383404~exp=1744387004~hmac=c1669d5c53241ce2c6d02aaa6f534ed8cae4758605f3c2f8f6a132cd13c2828d&w=996"
+              src={storyImage}
               alt="Our Story"
-              className="w-full rounded-lg shadow-lg object-cover transition-transform duration-300 hover:scale-105"
+              className="w-full rounded-lg shadow-lg"
             />
           </div>
         </div>
       </section>
 
-      {/* =========================
-          Mission & Vision Section
-      ========================= */}
-      <section className="py-16 bg-[#2392C3] text-white px-4 md:px-8">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-3xl font-bold">Our Mission</h2>
-            <p className="mt-4 text-lg">
-              To design and construct innovative, sustainable, and safe environments that empower communities and shape a better future.
-            </p>
+      {/* Mission & Vision */}
+      <section id="mission-vision" className="py-20 bg-gray-50">
+      {/* Section Heading */}
+      <div className="container mx-auto px-6 text-center mb-12">
+        <h2 className="text-4xl font-bold text-black">Mission & Vision</h2>
+        <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+          What drives us forward and shapes our future.
+        </p>
+      </div>
+
+      {/* Cards */}
+      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+        {items.map(({ Icon, title, text }) => (
+          <div
+            key={title}
+            className="relative bg-white border border-gray-200 rounded-lg p-8 hover:shadow-lg transition-transform transform hover:-translate-y-1"
+          >
+            {/* left accent bar */}
+            <span className="absolute left-0 top-0 h-full w-1 bg-black rounded-l-lg" />
+
+            {/* content */}
+            <div className="pl-4">
+              <div className="flex items-center mb-4">
+                <Icon className="w-6 h-6 text-black" />
+                <h3 className="ml-3 text-2xl font-semibold text-black">{title}</h3>
+              </div>
+              <p className="text-gray-700 leading-relaxed">{text}</p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-3xl font-bold">Our Vision</h2>
-            <p className="mt-4 text-lg">
-              To be the leading construction company, recognized for excellence, innovation, and integrity in every project we undertake.
-            </p>
+        ))}
+      </div>
+    </section>
+
+      {/* Core Values */}
+      <section id="core-values" className="py-16 bg-white">
+      <div className="container mx-auto px-6 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold text-black mb-12">
+          Core Values
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {values.map(({ Icon, title, desc }) => (
+            <div
+              key={title}
+              className="bg-white border border-gray-200 rounded-lg p-6 flex flex-col items-center transition-transform transform hover:-translate-y-1 hover:shadow-lg"
+            >
+              <Icon className="w-8 h-8 text-black mb-4" />
+              <h3 className="text-xl font-semibold text-black mb-2">
+                {title}
+              </h3>
+              <p className="text-gray-600 text-sm">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+
+      {/* Sales Summary */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10">Our Impact</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[{ value: years, label: 'Years Experience' },
+              { value: tons, label: 'Tons Exported' },
+              { value: clients, label: 'Happy Clients' },
+              { value: partners, label: 'Global Partners' },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-5xl font-bold text-black">
+                  {stat.value}
+                </div>
+                <p className="mt-2 text-gray-700">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* =========================
-          Core Values Section
-      ========================= */}
-      <section className="py-16 bg-white px-4 md:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-[#1E3A4C]">Our Core Values</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            These values define who we are and guide our every decision.
-          </p>
-          <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Value Card 1: Quality */}
-            <div className="bg-[#1E3A4C] text-white p-6 shadow">
-              <FaHardHat className="text-4xl mx-auto" />
-              <h3 className="mt-4 text-xl font-semibold">Quality</h3>
-              <p className="mt-2 text-gray-200">
-                We deliver exceptional quality that ensures durability, safety, and beauty.
-              </p>
-            </div>
-            {/* Value Card 2: Innovation */}
-            <div className="bg-[#2392C3] text-white p-6 shadow">
-              <FaBuilding className="text-4xl mx-auto" />
-              <h3 className="mt-4 text-xl font-semibold">Innovation</h3>
-              <p className="mt-2 text-gray-200">
-                We incorporate the latest technologies and creative designs to build the future.
-              </p>
-            </div>
-            {/* Value Card 3: Integrity */}
-            <div className="bg-[#30B94F] text-white p-6 shadow">
-              <FaHandshake className="text-4xl mx-auto" />
-              <h3 className="mt-4 text-xl font-semibold">Integrity</h3>
-              <p className="mt-2 text-gray-100">
-                We uphold honesty, transparency, and ethical business practices in all we do.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          Achievements Section
-      ========================= */}
-      <section className="py-16 bg-gray-50 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-[#1E3A4C]">Our Achievements</h2>
-          <div className="mt-12 flex flex-col sm:flex-row justify-around items-center">
-            <div className="m-4">
-              <h3 className="text-4xl font-bold text-[#30B94F]">
-                <CountUp end={50} duration={2.5} />
-              </h3>
-              <p className="mt-2 text-gray-700 uppercase">Years of Experience</p>
-            </div>
-            <div className="m-4">
-              <h3 className="text-4xl font-bold text-[#30B94F]">
-                <CountUp end={48000} duration={2.5} separator="," />
-              </h3>
-              <p className="mt-2 text-gray-700 uppercase">Projects Completed</p>
-            </div>
-            <div className="m-4">
-              <h3 className="text-4xl font-bold text-[#30B94F]">
-                <CountUp end={54900} duration={2.5} separator="," />
-              </h3>
-              <p className="mt-2 text-gray-700 uppercase">Happy Clients</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          Our Team Section
-      ========================= */}
-      <section className="py-16 bg-white px-4 md:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-[#1E3A4C]">Meet Our Team</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Our diverse team of passionate professionals is the backbone of our success.
-          </p>
-          <div className="mt-12 grid sm:grid-cols-1 md:grid-cols-3 gap-8">
-            {teamMembers.map((member) => (
-              <div
-                key={member.id}
-                className="bg-gray-100 p-6 shadow-lg text-center"
-              >
+      {/* Meet Our Team */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Meet Our Team
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { img: '/assets/team1.jpg', name: 'Nalin Perera', role: 'Founder & CEO' },
+              { img: '/assets/team2.jpg', name: 'Anitha Silva', role: 'Head of Production' },
+              { img: '/assets/team3.jpg', name: 'Ravi Fernando', role: 'Quality Manager' },
+              { img: '/assets/team4.jpg', name: 'Maya Kumar', role: 'Export Coordinator' },
+            ].map((m) => (
+              <div key={m.name} className="text-center p-6 border rounded-lg hover:shadow-lg transition">
                 <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-32 h-32 rounded-full mx-auto object-cover"
+                  src={m.img}
+                  alt={m.name}
+                  className="mx-auto w-32 h-32 object-cover rounded-full mb-4"
                 />
-                <h3 className="mt-4 text-xl font-semibold text-[#1E3A4C]">
-                  {member.name}
-                </h3>
-                <p className="text-gray-600">{member.role}</p>
+                <h4 className="text-xl font-semibold">{m.name}</h4>
+                <p className="text-gray-600">{m.role}</p>
               </div>
             ))}
           </div>
@@ -190,6 +235,4 @@ const About = () => {
       </section>
     </div>
   );
-};
-
-export default About;
+}

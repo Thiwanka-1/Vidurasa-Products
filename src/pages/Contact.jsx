@@ -1,111 +1,242 @@
-// Contact.jsx
-import React from 'react';
+// src/pages/Contact.jsx
+import React, { useState } from 'react';
+import {
+  FiMapPin,
+  FiMail,
+  FiPhone,
+  FiFacebook,
+  FiInstagram,
+  FiLinkedin,
+} from 'react-icons/fi';
+import { FaSpinner } from 'react-icons/fa';
+import contactHero from '../images/contact1.jpg';
+import contactIllustration from '../images/contact.png';
 
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
+export default function Contact() {
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [loading, setLoading] = useState(false);
 
-const Contact = () => {
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    setTimeout(() => {
+      // prepare mailto URL
+      const subject = encodeURIComponent(`New message from ${form.name}`);
+      const body = encodeURIComponent(
+        `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
+      );
+
+      // reset form
+      setForm({ name: '', email: '', message: '' });
+      setLoading(false);
+
+      // open email client
+      window.location.href = `mailto:gamithu619@gmail.com?subject=${subject}&body=${body}`;
+    }, 3000);
+  };
+
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Top Bar & Header */}
-    
-      <main className="flex-grow">
-        {/* --------------------------------------
-             Hero Banner
-        -------------------------------------- */}
-        <section
-          className="relative h-[700px] bg-cover bg-center"
-          style={{ backgroundImage: "url('https://img.freepik.com/free-photo/crop-architect-opening-blueprint_23-2147710985.jpg?t=st=1744389359~exp=1744392959~hmac=52921a110d88ea55e56b213f9e7887fb55451b420118e9e9a08dd3058c146dc6&w=996')" }}
+    <div className="font-sans text-gray-800">
+
+      {/* Hero Banner */}
+      <section
+        className="relative h-[600px] bg-cover bg-center"
+        style={{ backgroundImage: `url(${contactHero})` }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-50" />
+        <div className="relative z-10 container mx-auto h-full flex flex-col justify-center px-6">
+          <h1 className="text-3xl md:text-5xl text-white font-bold mb-2">
+            Get in Touch
+          </h1>
+          <p className="text-white max-w-2xl leading-relaxed">
+            Have questions or want to order our authentic Ceylon spices?
+            Drop us a line below or reach out via any of our channels.
+          </p>
+        </div>
+      </section>
+
+      {/* Top Contact Info & Social */}
+     <section className="py-16 bg-gray-50">
+  <div className="container mx-auto px-6">
+    {/* Section Heading */}
+    <h2 className="text-3xl font-bold text-center text-black mb-12">
+      Contact Information
+    </h2>
+
+    {/* Contact Cards */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Address */}
+      <div className="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+        <FiMapPin
+          className="text-black text-4xl mx-auto mb-4"
+          aria-hidden="true"
+        />
+        <h3 className="text-xl font-semibold text-black mb-2 text-center">
+          Our Address
+        </h3>
+        <p className="text-gray-600 text-center">
+          123 Spice Lane, Colombo 07, Sri Lanka
+        </p>
+        <a
+          href="https://goo.gl/maps/your-map-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-block text-black hover:text-gray-700 transition lg:ml-36 ml-16"
         >
-          <div className="absolute inset-0 bg-black opacity-60"></div>
-          <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-            <h1 className="text-4xl md:text-5xl font-bold">Get in Touch</h1>
-            <p className="mt-4 text-lg md:text-xl max-w-2xl">
-              We're here to help and answer any questions you might have.
-            </p>
-          </div>
-        </section>
+          View on Map →
+        </a>
+      </div>
 
-        {/* --------------------------------------
-             Contact Information Section
-        -------------------------------------- */}
-        <section className="py-16 bg-gray-50 px-4 md:px-8">
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            {/* Left: Contact Details */}
-            <div className="space-y-8">
-              <h2 className="text-3xl font-bold text-[#1E3A4C]">Contact Information</h2>
-              <p className="text-gray-600">
-                Feel free to reach out to us via phone or email. Visit our office at the address below for more details.
-              </p>
-              <div className="space-y-6">
-                <div className="flex items-center">
-                  <FaPhone className="text-2xl text-[#2392C3] mr-4" />
-                  <div>
-                    <h3 className="text-xl font-bold text-[#1E3A4C]">Phone</h3>
-                    <p className="text-gray-600">+1 (234) 567-890</p>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <FaEnvelope className="text-2xl text-[#2392C3] mr-4" />
-                  <div>
-                    <h3 className="text-xl font-bold text-[#1E3A4C]">Email</h3>
-                    <p className="text-gray-600">info@dumbaraconstructions.com</p>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <FaMapMarkerAlt className="text-2xl text-[#2392C3] mr-4" />
-                  <div>
-                    <h3 className="text-xl font-bold text-[#1E3A4C]">Address</h3>
-                    <p className="text-gray-600">123 Construction Avenue, City, Country</p>
-                  </div>
-                </div>
-              </div>
-              {/* Call-to-action Button */}
+      {/* Email */}
+      <div className="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+        <FiMail
+          className="text-black text-4xl mx-auto mb-4"
+          aria-hidden="true"
+        />
+        <h3 className="text-xl font-semibold text-black mb-2 text-center">
+          Email Us
+        </h3>
+        <a
+          href="mailto:info@widurasaagro.lk"
+          className="text-gray-600 text-center hover:text-black transition block"
+        >
+          info@widurasaagro.lk
+        </a>
+      </div>
+
+      {/* Phone */}
+      <div className="bg-white p-8 rounded-xl shadow hover:shadow-lg transition">
+        <FiPhone
+          className="text-black text-4xl mx-auto mb-4"
+          aria-hidden="true"
+        />
+        <h3 className="text-xl font-semibold text-black mb-2 text-center">
+          Call Us
+        </h3>
+        <a
+          href="tel:+94112345678"
+          className="text-gray-600 text-center hover:text-black transition block"
+        >
+          +94 11 234 5678
+        </a>
+      </div>
+    </div>
+
+    {/* Social Media Links */}
+    <div className="mt-12 text-center">
+      <h4 className="text-lg font-semibold text-black mb-6">Follow Us</h4>
+      <div className="flex justify-center space-x-6">
+        <a
+          href="https://facebook.com/YourPage"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+          className="text-black text-2xl hover:text-gray-700 transition"
+        >
+          <FiFacebook />
+        </a>
+        <a
+          href="https://instagram.com/YourPage"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          className="text-black text-2xl hover:text-gray-700 transition"
+        >
+          <FiInstagram />
+        </a>
+        <a
+          href="https://linkedin.com/in/YourProfile"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          className="text-black text-2xl hover:text-gray-700 transition"
+        >
+          <FiLinkedin />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+      {/* Main Form & Illustration */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+          {/* Contact Form */}
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">Send Us a Message</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <a
-                  href="mailto:info@dumbaraconstructions.com"
-                  className="inline-block bg-[#2392C3] text-white font-semibold py-3 px-8 hover:bg-[#1E3A4C] transition"
-                >
-                  Email Us
-                </a>
+                <label className="block text-gray-700 mb-1">Name</label>
+                <input
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                  className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:opacity-50"
+                  placeholder="Your name"
+                />
               </div>
-            </div>
-            {/* Right: Decorative Image (or Map) */}
-            <div>
-              <img
-                src="https://img.freepik.com/free-photo/crop-architect-opening-blueprint_23-2147710985.jpg?t=st=1744389359~exp=1744392959~hmac=52921a110d88ea55e56b213f9e7887fb55451b420118e9e9a08dd3058c146dc6&w=996"
-                alt="Our Location"
-                className="w-full h-full object-cover shadow-lg transition-transform duration-300 hover:scale-105"
-              />
-            </div>
+              <div>
+                <label className="block text-gray-700 mb-1">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                  className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:opacity-50"
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700 mb-1">Message</label>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  required
+                  disabled={loading}
+                  rows="6"
+                  className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black disabled:opacity-50"
+                  placeholder="Your message..."
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full flex justify-center items-center bg-black text-white font-semibold py-4 rounded-lg hover:bg-gray-800 transition disabled:opacity-50"
+              >
+                {loading ? (
+                  <>
+                    <FaSpinner className="animate-spin mr-2" />
+                    Sending…
+                  </>
+                ) : (
+                  'Submit'
+                )}
+              </button>
+            </form>
           </div>
-        </section>
 
-        {/* --------------------------------------
-             Social Media Section
-        -------------------------------------- */}
-        <section className="py-16 bg-white px-4 md:px-8">
-          <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-[#1E3A4C]">Follow Us</h2>
-            <p className="mt-4 text-gray-600">
-              Stay connected with us on social media.
-            </p>
-            <div className="mt-8 flex justify-center space-x-6">
-              <a href="#" aria-label="Facebook" className="text-[#1E3A4C] hover:text-[#2392C3] transition">
-                <FaFacebookF className="text-2xl" />
-              </a>
-              <a href="#" aria-label="Twitter" className="text-[#1E3A4C] hover:text-[#2392C3] transition">
-                <FaTwitter className="text-2xl" />
-              </a>
-              <a href="#" aria-label="LinkedIn" className="text-[#1E3A4C] hover:text-[#2392C3] transition">
-                <FaLinkedinIn className="text-2xl" />
-              </a>
-            </div>
+          {/* Illustration/Image */}
+          <div className="flex justify-center">
+            <img
+              src={contactIllustration}
+              alt="Contact illustration"
+              className="lg:w-[800px] rounded-lg shadow-md lg:h-[630px]"
+            />
           </div>
-        </section>
-      </main>
 
+        </div>
+      </section>
     </div>
   );
-};
-
-export default Contact;
+}

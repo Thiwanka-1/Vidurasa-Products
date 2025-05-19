@@ -16,6 +16,7 @@
     "axios": "^1.7.9",
     "educode": "file:..",
     "EduCode": "file:..",
+    "emailjs-com": "^3.2.0",
     "file-saver": "^2.0.5",
     "firebase": "^10.12.5",
     "jspdf": "^3.0.1",
