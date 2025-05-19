@@ -4,11 +4,13 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import About from './pages/About';
 import Products from './pages/Products';
+import ScrollToTop from './components/ScrollToTop';
 
 import Contact from './pages/Contact';
 export default function App() {
   return <BrowserRouter>
-  
+        <ScrollToTop />
+
   <Header />
     <Routes>
       <Route path = "/" element = {<Home />} /> {/* done */}

@@ -24,7 +24,8 @@ import gallery3 from '../images/galary3.png';
 import gallery4 from '../images/galary4.png';
 import cinnamonImage from '../images/cinnamon.jpg'; // swap in your actual path
 import { FaLeaf, FaPepperHot, FaQuoteLeft, FaQuoteRight, FaShippingFast } from 'react-icons/fa';
-  
+  import { Link } from 'react-router-dom';
+
 export default function Home() {
 
   const testimonialsData  = [
@@ -297,49 +298,55 @@ export default function Home() {
         </div>
       </div>
     </section>
+    
       {/* Featured Products */}
       <section id="products" className="py-20 bg-white">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-12">Featured Products</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {[
-              {
-                img: product1,
-                name: 'Cinnamon Sticks',
-                desc: 'Aromatic, hand-rolled Ceylon cinnamon sticks.',
-              },
-              {
-                img: product2,
-                name: 'Ground Cinnamon',
-                desc: 'Fine-textured powder for cooking & baking.',
-              },
-              {
-                img: product3,
-                name: 'Black Peppercorns',
-                desc: 'Rich, pungent peppercorns for seasoning.',
-              },
-            ].map((prod) => (
-              <div
-                key={prod.name}
-                className="bg-gray-50 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition"
-              >
-                <img
-                  src={prod.img}
-                  alt={prod.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-2xl font-semibold mb-2">{prod.name}</h3>
-                  <p className="text-gray-700 mb-4">{prod.desc}</p>
-                  <button className="text-black font-medium hover:underline">
-                    Learn More →
-                  </button>
-                </div>
-              </div>
-            ))}
+  <div className="container mx-auto px-6 text-center">
+    <h2 className="text-4xl font-bold mb-12">Featured Products</h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      {[
+        {
+          img: product1,
+          name: 'Cinnamon Sticks',
+          desc: 'Aromatic, hand-rolled Ceylon cinnamon sticks.',
+        },
+        {
+          img: product2,
+          name: 'Ground Cinnamon',
+          desc: 'Fine-textured powder for cooking & baking.',
+        },
+        {
+          img: product3,
+          name: 'Black Peppercorns',
+          desc: 'Rich, pungent peppercorns for seasoning.',
+        },
+      ].map((prod) => (
+        <div
+          key={prod.name}
+          className="bg-gray-50 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition flex flex-col"
+        >
+          <img
+            src={prod.img}
+            alt={prod.name}
+            className="w-full h-48 object-cover"
+          />
+          <div className="p-6 flex-grow">
+            <h3 className="text-2xl font-semibold mb-2">{prod.name}</h3>
+            <p className="text-gray-700 mb-4">{prod.desc}</p>
+          </div>
+          <div className="p-6 pt-0">
+            <Link
+              to="/products"
+              className="inline-block text-black font-medium hover:underline"
+            >
+              Learn More →
+            </Link>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* ======================================
             Testimonial Section (Slider)
