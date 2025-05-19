@@ -59,10 +59,6 @@ export default function Home() {
   }, []);
   return (
     <div className="font-sans text-gray-800">
-
-     
-
-
      {/* Hero Banner */}
 <section
   id="hero"
@@ -298,7 +294,7 @@ export default function Home() {
         </div>
       </div>
     </section>
-    
+
       {/* Featured Products */}
       <section id="products" className="py-20 bg-white">
   <div className="container mx-auto px-6 text-center">
