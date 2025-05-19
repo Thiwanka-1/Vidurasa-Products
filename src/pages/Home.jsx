@@ -79,13 +79,13 @@ export default function Home() {
       </p>
       <div className="mt-6 flex space-x-4">
         <a
-          href="#products"
+          href="/products"
           className="bg-white text-black font-semibold py-3 px-6 rounded-full hover:bg-gray-100 transition"
         >
           Our Products
         </a>
         <a
-          href="#about"
+          href="/about"
           className="border border-white text-white font-semibold py-3 px-6 rounded-full hover:bg-white hover:text-black transition"
         >
           Learn More
