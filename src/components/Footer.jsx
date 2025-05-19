@@ -27,6 +27,23 @@ export default function Footer() {
     return () => clearTimeout(timer);
   }, [notification]);
 
+  const socialLinks = [
+  {
+    href: 'https://www.facebook.com/YourPage',
+    Icon: FiFacebook,
+    label: 'Facebook',
+  },
+  {
+    href: 'https://www.instagram.com/YourPage',
+    Icon: FiInstagram,
+    label: 'Instagram',
+  },
+  {
+    href: 'https://twitter.com/YourProfile',
+    Icon: FiTwitter,
+    label: 'Twitter',
+  },
+];
   
   return (
     <footer className="bg-gray-900 text-gray-300 pt-16">
@@ -119,16 +136,19 @@ export default function Footer() {
 
         {/* Social Icons */}
         <div className="flex justify-center space-x-6 mt-12">
-          {[FiFacebook, FiInstagram, FiTwitter].map((Icon, i) => (
-            <a
-              key={i}
-              href="#"
-              className="text-gray-400 hover:text-white text-2xl transition"
-            >
-              <Icon />
-            </a>
-          ))}
-        </div>
+  {socialLinks.map(({ href, Icon, label }) => (
+    <a
+      key={label}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="text-gray-400 hover:text-white text-2xl transition"
+    >
+      <Icon />
+    </a>
+  ))}
+</div>
 
         {/* Copyright */}
         <div className="mt-8 text-center text-gray-500 text-sm pb-8">
