@@ -345,55 +345,74 @@ export default function Home() {
 </section>
 
       {/* ======================================
-            Testimonial Section (Slider)
-        ====================================== */}
-        <section className="py-16 h-[500px] w-full">
-      <div className="max-w-screen mx-auto flex flex-col md:flex-row items-stretch h-full w-full">
-        {/* Left Side */}
-        <div className="md:w-1/2 bg-gray-100 text-black p-8 md:p-16 flex flex-col justify-center ">
-          <p className="uppercase text-sm text-black tracking-wide lg:pl-60 md:pl-1">
-            Read Testimonials
-          </p>
-          <h3 className="text-2xl md:text-3xl font-bold mt-2 leading-tight lg:pl-60 md:pl-4 sm:pr-4">
-            It’s always a joy to hear that the work we do has positively reviews
-          </h3>
-        </div>
+    Testimonial Section (Slider)
+====================================== */}
+<section className="py-16 h-[500px] w-full relative">
+  {/* Fade-in keyframes for the slider */}
+  <style>{`
+    @keyframes fadeInSlide {
+      0% { opacity: 0; transform: translateX(20px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    .fade-in-slide {
+      animation: fadeInSlide 0.8s ease-in-out;
+    }
+  `}</style>
 
-        {/* Right Side (Slider) */}
-        <div className="md:w-1/2 bg-black text-white p-8 md:p-16 flex flex-col justify-center">
-          {/* Quoted Text */}
-          <div className="relative text-lg md:text-xl italic">
-            <FaQuoteLeft className="absolute -left-6 top-0 text-white text-xl" />
-            {testimonialsData[currentTestimonial].quote}
-            <FaQuoteRight className="absolute -right-6 bottom-0 text-white text-xl" />
-          </div>
+  <div className="max-w-screen mx-auto flex flex-col md:flex-row items-stretch h-full w-full">
+    {/* Left Side */}
+    <div className="md:w-1/2 bg-gray-100 text-black p-8 md:p-16 flex flex-col justify-center">
+      <p className="uppercase text-sm tracking-wide mb-2">
+        Read Testimonials
+      </p>
+      <h3 className="text-2xl md:text-3xl font-bold leading-tight">
+        It’s always a joy to hear that the work we do has positive reviews
+      </h3>
+    </div>
 
-          {/* Author & Role */}
-          <div className="mt-4">
-            <strong>{testimonialsData[currentTestimonial].author}</strong>
-            <br />
-            <span className="text-gray-300 text-sm">
-              {testimonialsData[currentTestimonial].role}
-            </span>
-          </div>
-
-          {/* Slide Indicators */}
-          <div className="flex justify-center items-center mt-6 space-x-2">
-            {testimonialsData.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentTestimonial(index)}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  currentTestimonial === index
-                    ? "bg-white"
-                    : "bg-gray-500 hover:bg-gray-400"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
+    {/* Right Side (Slider) */}
+    <div className="md:w-1/2 bg-black text-white p-8 md:p-16 flex flex-col justify-center">
+      {/* Quoted Text */}
+      <div
+        key={currentTestimonial}
+        className="relative text-lg md:text-xl italic fade-in-slide"
+      >
+        <FaQuoteLeft className="absolute -left-6 top-0 text-white text-2xl" />
+        {testimonialsData[currentTestimonial].quote}
+        <FaQuoteRight className="absolute -right-6 bottom-0 text-white text-2xl" />
       </div>
-    </section>
+
+      {/* Author & Role */}
+      <div
+        key={`author-${currentTestimonial}`}
+        className="mt-4 fade-in-slide"
+      >
+        <strong className="block text-white text-lg">
+          {testimonialsData[currentTestimonial].author}
+        </strong>
+        <span className="text-gray-300 text-sm">
+          {testimonialsData[currentTestimonial].role}
+        </span>
+      </div>
+
+      {/* Slide Indicators */}
+      <div className="flex justify-center items-center mt-6 space-x-2">
+        {testimonialsData.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentTestimonial(index)}
+            className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+              currentTestimonial === index
+                ? "bg-white"
+                : "bg-gray-500 hover:bg-gray-400"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
       {/* Gallery */}
